@@ -1,0 +1,85 @@
+<div class="fthr-header" [ngClass]="{'collapsed-sidebar':collapsedSidebar}">
+    <div class="fthr-header-content">
+        <div class="fthr-header-menu">
+
+        </div>
+        <div class="fthr-header-navbar">
+
+             <div class="navbar-item">
+                <div class="navbar-item-content">
+                    <i class="bi bi-search navbar-icon"></i>
+                </div>
+            </div>
+            <div class="navbar-item">
+                <div class="navbar-item-content">
+                    <i class="bi bi-bell navbar-icon"></i>
+                    <span class="bullet-dot bl-success"> </span>
+                </div>
+            </div>
+            <div class="navbar-item">
+                <div class="navbar-item-content">
+                    <i class="bi bi-grid navbar-icon"></i>
+                </div>
+            </div>
+             <div class="navbar-item">
+                <div class="navbar-item-content">
+                    <i class="bi bi-gear navbar-icon"></i>
+                </div>
+            </div>
+          <div class="navbar-item">
+                <div class="navbar-item-content">
+                  <i class="bi bi-cloud-upload-fill navbar-icon"></i>
+                </div>
+            </div>
+            <div class="navbar-item">
+                <div class="solde-content">
+                    Solde QR : {{qrSolde}}
+                </div>
+            </div>
+
+            <div class="navbar-item">
+                <div class="navbar-item-content">
+                    <!-- <img [matMenuTriggerFor]="userMenu" src="assets\images\user-avatar.png" class="rounded-img"
+                        alt="user"> -->
+                    <button [matMenuTriggerFor]="userMenu" class="btn btn-primary">
+                        <i class="bi bi-person"></i>
+                    </button>
+
+                    <mat-menu #userMenu="matMenu" class="user-menu mat-elevation-z1">
+                        <div id="user-menu">
+                            <!-- <div class="user-menu-header">
+                                <div class="user-menu-header-contant">
+                                    <div class="symbol">
+                                        <img alt="user" src="assets\images\user-avatar.png">
+                                    </div>
+                                    <div class="user-info">
+                                        <div class="user-name">
+                                            {{ user?.firstName + ' ' + user?.lastName }}
+                                            <span class="badge-success"> {{ user?.role }}</span>
+                                        </div>
+
+                                        <a class="user-mail"> {{ user?.userName }} </a>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="user-menu-items">
+                                <!-- <button mat-menu-item>
+                                    <i class="bi bi-person mat-icon"></i>
+                                    <span>Profile</span>
+                                </button> -->
+                                <!-- <button mat-menu-item>
+                                    <i class="bi bi-key mat-icon key"></i>
+                                    <span>Changer mot de passe</span>
+                                </button> -->
+                                <button mat-menu-item (click)="logout()">
+                                    <i class="bi bi-box-arrow-left mat-icon"></i>
+                                    <span>Se déconnecter</span>
+                                </button>
+                            </div>
+                        </div>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

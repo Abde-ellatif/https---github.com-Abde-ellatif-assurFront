@@ -1,0 +1,12 @@
+<div class="fthr-root">
+  <fthr-sidebar *ngIf="!activeUrl.startsWith('/login')" [collapsedSidebar]="isCollapsedSidebar()"
+    [user]="user"></fthr-sidebar>
+  <div class="fthr-main"
+    [ngClass]="{ 'collapsed-sidebar':isCollapsedSidebar(), 'full-screen':activeUrl.startsWith('/login') }">
+    <fthr-header *ngIf="!activeUrl.startsWith('/login')" [collapsedSidebar]="isCollapsedSidebar()"
+      [user]="user"></fthr-header>
+    <div class="fthr-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

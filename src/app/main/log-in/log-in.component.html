@@ -1,0 +1,64 @@
+<div class="feather-login-container" style="background-image: url('assets/images/auth-bg.png')">
+    <div class="feather-login-content">
+        <div class="feather-login-logo d-flex">
+            <div class="d-flex flex-center flex-lg-start flex-column">
+                <a class="mb-7">
+                    <img alt="Logo" src="assets/images/logos/sanlam-allianz-white-logo.svg">
+                </a>
+                <span class="description">
+                    Gestion Attestations Assurances
+                </span>
+            </div>
+        </div>
+
+        <div class="feather-login-form-wrapper d-flex">
+            <div class="feather-login-form-body d-flex">
+                <form class="feather-login-form-content" [formGroup]="loginForm">
+                    <div class="text-center mb-11">
+                        <h1 class="text-gray-900 fw-bolder mb-3">
+                            Se connecter
+                        </h1>
+                        <div class="company-name">
+                            Attestations Assurances <br>
+                            <img alt="Logo" src="assets/images/logos/sanlam-allianz-logo.svg">
+                        </div>
+                    </div>
+
+                    <div class="forms-container">
+                        <input type="text" formControlName="email" placeholder="Identifiant" name="email"
+                            autocomplete="off webauthn" class="login-form-control">
+                        <div *ngIf="submitted && getLoginForm['email'].errors" class="invalid-feedback">
+                            <div *ngIf="getLoginForm['email'].errors['required']">L'identifiant est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="forms-container password">
+                        <input type="password" formControlName="password" placeholder="Mot de passe" name="password"
+                            autocomplete="off webauthn" class="login-form-control">
+                        <div *ngIf="submitted && getLoginForm['password'].errors" class="invalid-feedback">
+                            <div *ngIf="getLoginForm['password'].errors['required']">Mot de passe est obligatoire</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex forgot-password">
+                        <a class="link-primary">
+                            Mot de passe oublié ?
+                        </a>
+                    </div>
+                    <div class="d-grid mb-10">
+                        <button class="btn btn-primary" (click)="login()">
+                            @if(!connecting) {
+                            <span class="indicator-label"> Se connecter</span>
+                            } @else {
+                            <span class="indicator-progress">
+                                Connexion en cours...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                            }
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

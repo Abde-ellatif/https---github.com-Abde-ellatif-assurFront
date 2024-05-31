@@ -1,0 +1,94 @@
+.fthr-home-container {
+    width: 100%;
+
+    .fthr-toolbar {
+        height: auto;
+        display: flex;
+        align-items: stretch;
+
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        background-color: transparent;
+        box-shadow: none;
+        font-family: Inter, Helvetica, sans-serif;
+
+        .fthr-toolbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 30px;
+            padding-right: 30px;
+
+            .fthr-page-title {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-right: 0.75rem;
+
+                .fthr-heading {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    margin-top: 0;
+                    margin-bottom: 0;
+
+                    color: var(--fthr-primary);
+                    font-size: 17.55px;
+                    line-height: 21px;
+                    font-weight: 600;
+                }
+
+                .fthr-breadcrumb {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    background-color: transparent;
+                    list-style: none;
+
+                    padding: 0;
+                    margin: 0;
+                    font-size: 12.35px;
+                    font-weight: 500;
+                    padding-top: 0.25rem;
+
+                    .breadcrumb-item {
+                        display: flex;
+                        align-items: center;
+                        color: #99a1b7;
+                        font-weight: 500;
+                        margin-right: 5px;
+
+                        .text-muted {
+                            color: #99a1b7;
+                        }
+
+                        a {
+                            text-decoration: none;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: #1b84ff;
+                            }
+                        }
+
+                        .bullet {
+                            display: inline-block;
+                            border-radius: 6px;
+                            flex-shrink: 0;
+                            height: 2px !important;
+                            width: 5px !important;
+                            background-color: #99a1b7;
+                        }
+
+                        &::before {
+                            content: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .fthr-page {}
+}

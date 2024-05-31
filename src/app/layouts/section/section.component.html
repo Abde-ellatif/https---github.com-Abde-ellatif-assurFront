@@ -1,0 +1,14 @@
+<section class="container-fluid section-container">
+    <div class="fthr-section-label">
+        <label>{{section?.label}}</label>
+    </div>
+    <div class="fthr-section-content">
+        @for (row of section?.rows; track $index) {
+        <div class="row">
+            @for (ctrl of row?.conrols; track $index) {
+            <fthr-control [control]="ctrl" [ngClass]="ctrl.width" />
+            }
+        </div>
+        }
+    </div>
+</section>

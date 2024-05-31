@@ -1,0 +1,515 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$feather-primary: mat.define-palette(mat.$indigo-palette);
+$feather-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$feather-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$feather-theme: mat.define-light-theme((color: (primary: $feather-primary,
+                accent: $feather-accent,
+                warn: $feather-warn )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($feather-theme);
+
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --fthr-primary: #1b84ff;
+    --fthr-primary-active: #056ee9;
+    --fthr-primary-light: #e9f3ff;
+
+    --fthr-success: #17c653;
+    --fthr-success-light: #dfffea;
+
+    --fthr-sidebar-opened-width: 265px;
+    --fthr-sidebar-collapsed-width: 75px;
+
+
+    --gi-danger: #dc3545;
+    --gi-gray-300: #dbdfe9;
+}
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    // font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: Inter, Helvetica, sans-serif;
+    background-color: #fcfcfc;
+}
+
+.gi-form-control-container {
+    margin-bottom: 15px;
+
+    .gi-form-label {
+        margin-bottom: 0.5rem;
+        font-size: 1.05rem;
+        font-weight: 500;
+        color: #252f4a;
+        font-family: Inter, Helvetica, sans-serif;
+        font-size: 13.65px;
+        font-weight: 500;
+        height: 20.475px;
+        line-height: 20.475px;
+        margin-bottom: 6.5px;
+
+        &.required:after {
+            content: "*";
+            position: relative;
+            font-size: inherit;
+            color: var(--gi-danger);
+            padding-left: 0.25rem;
+            font-weight: 600;
+        }
+    }
+
+    .gi-form-control {
+        display: block;
+        width: 100%;
+        padding: 0.775rem 1rem;
+        font-size: 14.5px;
+        font-weight: 500;
+        line-height: 1.5;
+        color: #4b5675;
+        appearance: none;
+        background-color: #ffffff;
+        background-clip: padding-box;
+        border: 1px solid #dbdfe9;
+        border-radius: 0.475rem;
+        height: 43px;
+        box-shadow: false;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+        &:focus {
+            color: #4B5675;
+            background-color: #ffffff;
+            border-color: #c4cada;
+            outline: 0;
+            box-shadow: false, 0 0 0 .25rem rgba(27, 132, 255, .25);
+        }
+    }
+
+    textarea.gi-form-control {
+        height: unset;
+        min-height: 45px;
+    }
+
+    .gi-mat-form-control {
+        display: block;
+        width: 100%;
+
+        .mat-mdc-text-field-wrapper {
+            height: 43px;
+
+            &.mdc-text-field--outlined {
+                .mat-mdc-form-field-infix {
+                    padding-top: 11px;
+                    padding-bottom: 11px;
+                }
+            }
+        }
+
+        .mat-mdc-form-field-subscript-wrapper {
+            height: 0px;
+            display: none;
+        }
+
+        .mat-mdc-select-value-text {
+            font-family: Inter, Helvetica, sans-serif;
+            font-size: 14.5px;
+            font-weight: 500;
+            line-height: 1.5;
+            color: rgb(75, 86, 117)
+        }
+
+        .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
+            border-top-left-radius: 0.475rem;
+            border-bottom-left-radius: 0.475rem;
+            border-color: #dbdfe9 !important;
+            border-width: 1px;
+        }
+
+        .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
+            border-top-right-radius: 0.475rem;
+            border-bottom-right-radius: 0.475rem;
+            border-color: #dbdfe9 !important;
+            border-width: 1px;
+        }
+
+        .mat-mdc-form-field.mat-focused .mat-mdc-select-arrow {
+            color: #dbdfe9;
+        }
+
+        .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,
+        .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
+            border-color: #c4cada !important;
+            border-width: 1px;
+        }
+    }
+
+    .gi-form-control-check {
+        border-radius: 0.45em;
+        width: 22.75px;
+        height: 22.75px;
+        margin-top: -0.125rem;
+        vertical-align: top;
+        appearance: none;
+        border: 1px solid var(--gi-gray-300);
+
+        background-size: 60% 60%;
+        background-color: rgb(241, 241, 244);
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+
+        &:checked {
+            background-color: #1b84ff;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 11' width='13' height='11' fill='none'%3e%3cpath d='M11.0426 1.02893C11.3258 0.695792 11.8254 0.655283 12.1585 0.938451C12.4917 1.22162 12.5322 1.72124 12.249 2.05437L5.51985 9.97104C5.23224 10.3094 4.72261 10.3451 4.3907 10.05L0.828197 6.88335C0.50141 6.59288 0.471975 6.09249 0.762452 5.7657C1.05293 5.43891 1.55332 5.40948 1.88011 5.69995L4.83765 8.32889L11.0426 1.02893Z' fill='%23ffffff'/%3e%3c/svg%3e");
+
+        }
+    }
+
+    .gi-form-control-radio {
+        width: 22.75px;
+        height: 22.75px;
+        border-radius: 50%;
+        appearance: none;
+        vertical-align: top;
+        background-color: rgb(241, 241, 244);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        border: 1px solid var(--gi-gray-300);
+        cursor: pointer;
+
+        &:checked {
+            background-color: #1b84ff;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23ffffff'/%3e%3c/svg%3e")
+        }
+    }
+}
+
+
+
+.fthr-control-container {
+    .mat-mdc-text-field-wrapper {
+        height: 40px;
+
+        &.mdc-text-field--outlined {
+            .mat-mdc-form-field-infix {
+                padding-top: 11px;
+                padding-bottom: 11px;
+            }
+        }
+    }
+
+    .mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align {
+        height: 10px;
+    }
+}
+
+.fthr-control-container {
+    .text-area {
+        .mat-mdc-text-field-wrapper {
+            height: unset !important;
+        }
+    }
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+#user-menu {
+    .user-menu-header {
+        display: block;
+        padding: 0.15rem 0;
+        border-bottom: 1px solid #f1f1f4;
+
+        .user-menu-header-contant {
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+
+            .symbol {
+                margin-right: 1.25rem;
+
+                img {
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 0.625rem;
+                }
+            }
+
+            .user-info {
+                display: flex;
+                flex-direction: column;
+
+                .user-name {
+                    font-weight: 600;
+                    font-size: 13.8px;
+                    color: #071437;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .user-mail {
+                    color: #99a1b7;
+                    font-size: 11.4px;
+                    font-weight: 500;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .user-menu-items {
+        padding: 8px 10px 0px 10px;
+
+        button {
+            min-height: 40px;
+            margin-top: 5px;
+            font-size: 13.975px;
+            font-weight: 500;
+            color: #071437 !important;
+
+            .mat-icon {
+                margin-right: 10px;
+                font-size: 22px;
+                position: relative;
+                top: 2px;
+            }
+
+            &:hover {
+                background-color: #f7f8fb;
+                color: var(--fthr-primary);
+                border-radius: 0.475rem;
+            }
+        }
+    }
+}
+
+// fthr badges
+.badge-success {
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 6px;
+    margin-left: 6px;
+    border-radius: 5px;
+    color: var(--fthr-success);
+    background-color: var(--fthr-success-light);
+}
+
+// fthr btns
+
+.fthr-btn {
+    height: 34px;
+    padding: 8px 14px;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 500;
+    border-radius: 5px;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    cursor: pointer;
+    border: 0;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    &.btn-primary {
+        color: #ffffff;
+        background-color: var(--fthr-primary);
+
+        &:hover {
+            background-color: var(--fthr-primary-active);
+        }
+    }
+
+    &.btn-light-succes {
+        background-color: #f9f9f9;
+        color: #5cb85c;
+    }
+
+    &.btn-secondary {
+        color: #252F4A;
+        background-color: #252F4A;
+
+        &:hover {
+            background-color: #DBDFE9;
+        }
+    }
+
+    &.btn-danger {
+        background-color: #f9f9f9;
+        color: #99a1b7;
+
+        &:hover {
+            color: red;
+        }
+    }
+
+    &.btn-light {
+        background-color: #f9f9f9;
+        color: #99a1b7;
+
+        &:hover {
+            color: var(--fthr-primary);
+            background-color: var(--fthr-primary-light);
+        }
+    }
+
+    &.btn-light-primary {
+        background-color: #E9F3FF;
+        color: var(--fthr-primary);
+
+        &:hover {
+            color: #ffffff;
+            background-color: var(--fthr-primary);
+        }
+    }
+}
+
+
+/////////////////////
+/// 
+.me-0 {
+    margin-right: 0 !important
+}
+
+.me-1 {
+    margin-right: .25rem !important
+}
+
+.me-2 {
+    margin-right: .5rem !important
+}
+
+.me-3 {
+    margin-right: .75rem !important
+}
+
+.me-4 {
+    margin-right: 1rem !important
+}
+
+.me-5 {
+    margin-right: 1.25rem !important
+}
+
+.me-6 {
+    margin-right: 1.5rem !important
+}
+
+.me-7 {
+    margin-right: 1.75rem !important
+}
+
+.me-8 {
+    margin-right: 2rem !important
+}
+
+.me-9 {
+    margin-right: 2.25rem !important
+}
+
+.me-10 {
+    margin-right: 2.5rem !important
+}
+
+.me-11 {
+    margin-right: 2.75rem !important
+}
+
+.me-12 {
+    margin-right: 3rem !important
+}
+
+.me-13 {
+    margin-right: 3.25rem !important
+}
+
+.me-14 {
+    margin-right: 3.5rem !important
+}
+
+.me-15 {
+    margin-right: 3.75rem !important
+}
+
+.me-16 {
+    margin-right: 4rem !important
+}
+
+.me-17 {
+    margin-right: 4.25rem !important
+}
+
+.me-18 {
+    margin-right: 4.5rem !important
+}
+
+.me-19 {
+    margin-right: 4.75rem !important
+}
+
+.me-20 {
+    margin-right: 5rem !important
+}
+
+.me-auto {
+    margin-right: auto !important
+}
+
+//////
+/// 
+// .mat-mdc-dialog-container .mdc-dialog__surface {
+//   border-radius: unset !important;
+// }
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    background-color: white !important;
+}

@@ -1,0 +1,92 @@
+<div class="mat-elevation-z8">
+  <div class="spinner-container" *ngIf="dataCharge">
+    <h6>
+    <mat-spinner color="danger"  ></mat-spinner>Chargement ...</h6>
+  </div>  <table mat-table [dataSource]="dataSource" *ngIf="!dataCharge">
+    <!-- Matricule Column -->
+    <ng-container matColumnDef="Matricule">
+      <th mat-header-cell *matHeaderCellDef> Matricule </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.matricule}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef> Nom </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.name}} </td>
+    </ng-container>
+
+    <!-- Prenom Column -->
+    <ng-container matColumnDef="Prenom">
+      <th mat-header-cell *matHeaderCellDef> Prénom </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.prenom}} </td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="Email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.email}} </td>
+    </ng-container>
+
+    <!-- Telephone Column -->
+    <ng-container matColumnDef="Telephone">
+      <th mat-header-cell *matHeaderCellDef> Téléphone </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.telephone}} </td>
+    </ng-container>
+
+    <!-- DateNaissance Column -->
+    <ng-container matColumnDef="DateNaissance">
+      <th mat-header-cell *matHeaderCellDef> Date Naissance </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.dateNaissance}} </td>
+    </ng-container>
+
+    <!-- Sexe Column -->
+    <ng-container matColumnDef="Sexe">
+      <th mat-header-cell *matHeaderCellDef> Sexe </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.sexe}} </td>
+    </ng-container>
+
+    <!-- DateFeet Column -->
+    <ng-container matColumnDef="DateFeet">
+      <th mat-header-cell *matHeaderCellDef> Date Feet </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.dateFeet}} </td>
+    </ng-container>
+
+    <!-- DateSortie Column -->
+    <ng-container matColumnDef="DateSortie">
+      <th mat-header-cell *matHeaderCellDef> Date Sortie </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.dateSortie}} </td>
+    </ng-container>
+
+    <!-- Code1 Column -->
+    <ng-container matColumnDef="code1">
+      <th mat-header-cell *matHeaderCellDef> Code Client </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.code1}} </td>
+    </ng-container>
+
+    <!-- Code2 Column -->
+    <ng-container matColumnDef="code2">
+      <th mat-header-cell *matHeaderCellDef> Code Amis Client </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.code2}} </td>
+    </ng-container>
+
+    <!-- Gestionnaire Column -->
+    <ng-container matColumnDef="Gestionnaire">
+      <th mat-header-cell *matHeaderCellDef> Gestionnaire </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.gestionnaireId}} </td>
+    </ng-container>
+
+    <!-- Assureur Column -->
+    <ng-container matColumnDef="Assureur">
+      <th mat-header-cell *matHeaderCellDef> Assureur </th>
+      <td mat-cell *matCellDef="let clients"> {{clients.assureurId}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>

@@ -1,0 +1,16 @@
+@if(data.type == 'ERROR') {
+<span class="error-msg" matSnackBarLabel>
+    <i class="bi bi-exclamation-circle" style="font-size: 22px;position: relative;top: 3px;"></i>
+    {{data.content}}
+</span>
+}
+@else {
+<span class="succes-msg" matSnackBarLabel>
+    <i class="bi bi-check" style="font-size: 22px;position: relative;top: 3px;"></i>
+    {{data.content}}
+</span>
+}
+
+<span matSnackBarActions>
+    <i class="bi bi-x" style="color:black;font-size: 22px;" (click)="snackBarRef.dismissWithAction()"></i>
+</span>

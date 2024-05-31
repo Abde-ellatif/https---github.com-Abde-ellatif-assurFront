@@ -1,0 +1,55 @@
+<div class="fthr-sidebar" [ngClass]="{ collapsed:collapsedSidebar, animating }">
+    <div class="fthr-sidebar-logo">
+        <a class="logo-container" [ngClass]="{ collapsed:collapsedSidebar }">
+            <img text="gestion" alt="gestion it" src="assets\images\logos\sanlam-allianz-logo.svg">
+        </a>
+
+
+        <div class="fthr-sidebar-toggle" (click)="toggleSidebar()">
+            <i class="bi bi-arrow-bar-left rotate-180"></i>
+        </div>
+    </div>
+
+    <div class="app-sidebar-menu">
+        <div class="app-sidebar-wrapper">
+            <div class="scroll-y">
+                <div class="menu">
+                    @for(item of menu.children; track item.id){
+                    <div class="menu-item">
+                        <span class="menu-link" (click)="menuRootClicked(item)">
+                            <span class="menu-icon">
+                                <i class="bi bi-{{item.icon}}"></i>
+                            </span>
+                            <span class="menu-title hide-in-collapsed">
+                                {{item.title}}
+                            </span>
+                            <span *ngIf="item.type == 'collapsible'" class="menu-arrow hide-in-collapsed">
+                                @if(openedRootId == item.id) {
+                                <i class="bi bi-chevron-up"></i>
+                                }@else {
+                                <i class="bi bi-chevron-down"></i>
+                                }
+                            </span>
+                        </span>
+                        @if(item.type == 'collapsible' && openedRootId == item.id) {
+                        <div class="menu-sub">
+                            @for(child of item.children; track child.id){
+                            <div class="menu-item">
+                                <a class="menu-link" (click)="menuItemClicked(child)"
+                                    [ngClass]="{'active':activeItemId == child.id}">
+                                    <span class="menu-bullet">
+                                        <i class="bi bi-{{child.icon}}"></i>
+                                    </span>
+                                    <span class="menu-title">{{child.title}}</span>
+                                </a>
+                            </div>
+                            }
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="fthr-control-container">
+    @switch (control?.type) {
+    @case ('text') {
+    <fthr-text [control]="control" />
+    }
+    @case ('select') {
+    <fthr-select [control]="control" />
+    }
+    @case ('date') {
+    <fthr-date [control]="control" />
+    }
+    @default {
+    }
+    }
+</div>

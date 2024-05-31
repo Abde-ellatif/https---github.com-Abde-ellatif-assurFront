@@ -1,0 +1,12 @@
+:host {
+    display: flex;
+    justify-content: space-between;
+}
+
+.succes-msg {
+    color: var(--fthr-success) !important;
+}
+
+.error-msg{
+    color: var(--gi-danger) !important;  
+}
