@@ -12,4 +12,8 @@ table {
 .mat-elevation-z8 {
   margin: 20px; /* Adjust as needed */
 }
-
+.align-right {
+  display: grid;
+  justify-content: right;
+  margin-top: 6px; /* optionnel, pour ajouter de l'espace en haut */
+}

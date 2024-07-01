@@ -1,63 +1,65 @@
-import {Component, OnInit, signal} from '@angular/core';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MatButtonModule} from "@angular/material/button";
-import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
-import {ClientService} from "../services/client.service";
-import {Client} from "../models/Client.model";
+import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ClientService } from '../services/client.service';
+import {NgIf} from "@angular/common";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-uploadcsv',
-  standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatButtonModule,
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatDialogClose,
-    ReactiveFormsModule,
-  ],
   templateUrl: './uploadcsv.component.html',
-  styleUrl: './uploadcsv.component.scss'
+  styleUrls: ['./uploadcsv.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    NgIf
+  ],
+  standalone: true
 })
+export class UploadcsvComponent implements OnInit {
+  form!: FormGroup;
+  file!: File;
 
-
-
-
-export class UploadcsvComponent implements OnInit{
-  form!:FormGroup
-  client! : Client[]
-  animal: string;
-  name: string;
-
-  constructor(private _formBuilder:FormBuilder,public dialog: MatDialog, private _clientService:ClientService) {}
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(UploadcsvComponent, {
-      data: {name: this.name, animal: this.animal},
-    });
-
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
-    });
-  }
-  initFormGroup(){
-    this.form=this._formBuilder.group({
-      clients:[this.client,'',Validators.required]
-    })
-  }
-  submit(){
-    return this._clientService.uploadClient(this.client)
-  }
+  constructor(
+    private _formBuilder: FormBuilder,
+    public dialog: MatDialog,
+    private _clientService: ClientService,
+    private toast: NgToastService
+  ) {}
 
   ngOnInit(): void {
-    this.initFormGroup()
+    this.initFormGroup();
   }
 
+  initFormGroup(): void {
+    this.form = this._formBuilder.group({
+      file: [null, Validators.required],
+    });
+  }
+
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.file = input.files[0];
+      this.form.patchValue({
+        file: this.file,
+      });
+    }
+  }
+
+  submit(): void {
+    if (this.form.valid && this.file) {
+      this._clientService.uploadClient(this.file).subscribe(
+        (response) => {
+          console.log('Upload successful', response);
+          this.toast.success("le fichier a été charger avec succes", 'sucess',4000)
+          this.form.reset();
+        },
+        (error) => {
+          console.error('Upload error', error);
+          this.toast.danger("probleme lors du chargement du fichier merci de revérifier ",'error',3000);
+          this.form.reset();
+        }
+      );
+    }
+  }
 }

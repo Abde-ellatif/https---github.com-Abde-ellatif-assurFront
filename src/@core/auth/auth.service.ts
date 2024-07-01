@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject, signal } from "@angular/core";
 import { BehaviorSubject, Observable, map } from "rxjs";
-import { environment } from "../../environments/environment.development";
+import {environment} from "../../environments/environment";
 import { Router } from "@angular/router";
 import { User } from "../../app/models/session-data";
 
@@ -11,7 +11,8 @@ import { User } from "../../app/models/session-data";
 export class AuthService {
     public httpClient = inject(HttpClient);
     public router = inject(Router);
-    public endpoint = 'compagnie';
+    public endpoint = 'Login';
+    public role:string | null
 
     public currentUser?: Observable<User | null>;
     public currentUserSubject: BehaviorSubject<User | null>;
@@ -26,7 +27,7 @@ export class AuthService {
     }
 
     // login(email: string, password: string) {
-    //     return this.httpClient.post<any>(`${environment.aasURL}/${this.endpoint}/session/token`, { username: email, password, grant_type: 'password' })
+    //     return this.httpClient.post<any>(`${environment.apiURL}/${this.endpoint}/login`, { email: email, password, string: 'password' })
     //         .pipe(
     //             map(userResp => {
     //                 if (userResp && userResp.operationStatus === 'SUCCESS') {
@@ -39,6 +40,41 @@ export class AuthService {
     //             })
     //         );
     // }
+
+
+  getToken(): string | null
+  {
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        const user = JSON.parse(currentUser);
+        return user.access_token;
+      }
+      return null;
+  }
+  login(email: string, password: string) {
+    return this.httpClient.post<any>(`${environment.apiURL}/${this.endpoint}/login`, { email, password })
+      .pipe(
+        map(userResp => {
+          if (userResp && userResp.token) {
+            const currentUser = {
+              access_token: userResp.token,
+              role: userResp.role
+            };
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            this.currentUserSubject.next(currentUser);
+            this.role= currentUser.role
+          }
+          return userResp;
+        })
+      );
+  }
+  getCurrentUser(){
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const user = JSON.parse(currentUser);
+      return user.role;
+    }
+  }
 
     logout() {
         localStorage.removeItem('currentUser');

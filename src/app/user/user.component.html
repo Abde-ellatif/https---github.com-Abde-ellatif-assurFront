@@ -1,0 +1,48 @@
+<form>
+  <div class="mb-3 row">
+    <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+    <div class="col-xs-3 col-sm-auto">
+      <input
+        id="table-complete-search"
+        type="text"
+        class="form-control"
+        name="searchTerm"
+        [(ngModel)]="searchTerm"
+      />
+    </div>
+    <div *ngIf="_userService.loading$ | async" class="col col-form-label">Loading...</div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col" sortable="userName" (sort)="onSort($event)">Nom d'utilisateur</th>
+      <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
+      <th scope="col" sortable="activateCompte" (sort)="onSort($event)">Actif</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of _users$ | async; trackBy: trackById">
+      <td>{{ user.userName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.activateCompte ? 'Yes' : 'No' }}</td>
+      <td class="details"></td>
+    </tr>
+    <tr *ngIf="(_users$ | async)?.length === 0">
+      <td colspan="4" style="text-align: center">No users found</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="_userService.page" [pageSize]="_userService.pageSize">
+    </ngb-pagination>
+
+    <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="_userService.pageSize">
+      <option [ngValue]="2">2 items per page</option>
+      <option [ngValue]="4">4 items per page</option>
+      <option [ngValue]="6">6 items per page</option>
+    </select>
+  </div>
+</form>

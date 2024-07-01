@@ -1,92 +1,108 @@
 <div class="mat-elevation-z8">
   <div class="spinner-container" *ngIf="dataCharge">
     <h6>
-    <mat-spinner color="danger"  ></mat-spinner>Chargement ...</h6>
-  </div>  <table mat-table [dataSource]="dataSource" *ngIf="!dataCharge">
+      <mat-spinner color="warn"></mat-spinner>Chargement ...
+    </h6>
+  </div>
+  <div>
+    <mat-form-field appearance="fill" class="align-right">
+      <mat-label>Page Size</mat-label>
+      <mat-select [value]="pageSize" (selectionChange)="setPageSize($event.value)">
+        <mat-option *ngFor="let size of [5, 10, 20, 50]" [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <table mat-table [dataSource]="dataSource" *ngIf="!dataCharge">
     <!-- Matricule Column -->
     <ng-container matColumnDef="Matricule">
       <th mat-header-cell *matHeaderCellDef> Matricule </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.matricule}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.matricule}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="Name">
       <th mat-header-cell *matHeaderCellDef> Nom </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.name}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.name}} </td>
     </ng-container>
 
     <!-- Prenom Column -->
     <ng-container matColumnDef="Prenom">
       <th mat-header-cell *matHeaderCellDef> Prénom </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.prenom}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.prenom}} </td>
     </ng-container>
 
     <!-- Email Column -->
     <ng-container matColumnDef="Email">
       <th mat-header-cell *matHeaderCellDef> Email </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.email}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.email}} </td>
     </ng-container>
 
     <!-- Telephone Column -->
     <ng-container matColumnDef="Telephone">
       <th mat-header-cell *matHeaderCellDef> Téléphone </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.telephone}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.telephone}} </td>
     </ng-container>
 
     <!-- DateNaissance Column -->
     <ng-container matColumnDef="DateNaissance">
       <th mat-header-cell *matHeaderCellDef> Date Naissance </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.dateNaissance}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.dateNaissance}} </td>
     </ng-container>
 
     <!-- Sexe Column -->
     <ng-container matColumnDef="Sexe">
       <th mat-header-cell *matHeaderCellDef> Sexe </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.sexe}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.sexe}} </td>
     </ng-container>
 
     <!-- DateFeet Column -->
     <ng-container matColumnDef="DateFeet">
       <th mat-header-cell *matHeaderCellDef> Date Feet </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.dateFeet}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.dateFeet}} </td>
     </ng-container>
 
     <!-- DateSortie Column -->
     <ng-container matColumnDef="DateSortie">
       <th mat-header-cell *matHeaderCellDef> Date Sortie </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.dateSortie}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.dateSortie}} </td>
     </ng-container>
 
     <!-- Code1 Column -->
     <ng-container matColumnDef="code1">
       <th mat-header-cell *matHeaderCellDef> Code Client </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.code1}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.code1}} </td>
     </ng-container>
 
     <!-- Code2 Column -->
     <ng-container matColumnDef="code2">
       <th mat-header-cell *matHeaderCellDef> Code Amis Client </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.code2}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.code2}} </td>
     </ng-container>
 
     <!-- Gestionnaire Column -->
     <ng-container matColumnDef="Gestionnaire">
       <th mat-header-cell *matHeaderCellDef> Gestionnaire </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.gestionnaireId}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.gestionnaireId}} </td>
     </ng-container>
 
     <!-- Assureur Column -->
     <ng-container matColumnDef="Assureur">
       <th mat-header-cell *matHeaderCellDef> Assureur </th>
-      <td mat-cell *matCellDef="let clients"> {{clients.assureurId}} </td>
+      <td mat-cell *matCellDef="let client"> {{client.assureurId}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>
+  <div>
+    <button  (click)="onPageChange(pageNumber - 1)" [disabled]="pageNumber === 1">Previous</button>
+    <span>Page {{pageNumber}}</span>
+    <span>Page {{totalCount}}</span>
+    <button (click)="onPageChange(pageNumber + 1)" [disabled]="pageNumber * pageSize >= totalCount">Next</button>
+  </div>
+
+
 </div>

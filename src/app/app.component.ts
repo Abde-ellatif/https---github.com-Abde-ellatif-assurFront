@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, importProvidersFrom} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {NavigationEnd, Router, RouterModule, RouterOutlet} from '@angular/router';
 import { HeaderComponent } from './layouts/header/header.component';
@@ -9,6 +9,12 @@ import { CardTableConfig } from './models/card-table-config';
 import { AuthService } from '../@core/auth/auth.service';
 import { User } from './models/session-data';
 import {CostmerComponent} from "./costmer/costmer.component";
+import {NgToastModule, ToasterPosition} from 'ng-angular-popup';
+import {DecimalPipe} from "@angular/common";
+import {FormsModule} from "@angular/forms";
+
+
+
 
 @Component({
   selector: 'app-root',
@@ -16,11 +22,13 @@ import {CostmerComponent} from "./costmer/costmer.component";
   imports: [
     CommonModule,
     RouterOutlet,
-    // Componets
+    NgToastModule,
     HeaderComponent,
     SidebarComponent,
     RouterModule,
-    CostmerComponent
+    CostmerComponent,
+    DecimalPipe,
+    FormsModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -99,4 +107,6 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  protected readonly ToasterPosition = ToasterPosition;
 }

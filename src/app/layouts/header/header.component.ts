@@ -6,6 +6,8 @@ import { User } from '../../models/session-data';
 import { CommandesService } from '../../services/commandes.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import {LogInComponent} from "../../main/log-in/log-in.component";
+import {RouterLink} from "@angular/router";
+import {UploadcsvComponent} from "../../uploadcsv/uploadcsv.component";
 
 @Component({
   selector: 'fthr-header',
@@ -13,7 +15,8 @@ import {LogInComponent} from "../../main/log-in/log-in.component";
   imports: [
     CommonModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    RouterLink
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -64,6 +67,7 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
   }
 
+
   loginMilliard() {
     const dialogRef = this.dialog.open(LogInComponent,
       {
@@ -82,4 +86,14 @@ export class HeaderComponent implements OnInit {
   logoutMilliard() {
     this.authService.setMilliardAccount(null);
   }
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(UploadcsvComponent, {
+      width: '700px',
+      height: '40px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+
+  protected readonly UploadcsvComponent = UploadcsvComponent;
 }
