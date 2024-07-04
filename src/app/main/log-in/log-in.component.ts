@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { first } from 'rxjs';
 import { Router } from '@angular/router';
 import {NgToastService} from "ng-angular-popup";
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import {User} from "../../models/user.model";
+import {UserModule} from "../../user.module";
 
 @Component({
   selector: 'gi-log-in',
@@ -20,6 +23,7 @@ export class LogInComponent implements OnInit {
   public authService = inject(AuthService);
   public router = inject(Router);
   private formBuilder = inject(FormBuilder);
+  user!:User
 
   public connecting = false;
   public submitted = false;
@@ -47,7 +51,7 @@ export class LogInComponent implements OnInit {
     this.submitted = true;
 
     if (this.loginForm.invalid) {
-      return;
+      return this.toast.warning("Merci de remplir toutes les informations pour s'authentifier", 'Authentication Failed', 3000);
     }
 
     this.connecting = true;
@@ -57,26 +61,38 @@ export class LogInComponent implements OnInit {
       .subscribe({
         next: data => {
           this.connecting = false;
+
+          if (data.activateCompte === false) {
+            this.toast.warning("Votre compte a été désactivé. Contactez votre administrateur.", 'Compte désactivé', 3000);
+            return;
+          }
+
           if (data.role === 'admin') {
             this.router.navigate(['/client']);
-          }else if(data.role ==='user'){
-            this.router.navigate(['/uploadData'])
-          }
-          else {
+          } else if (data.role === 'user') {
+            this.router.navigate(['/uploadData']);
+          } else {
             this.router.navigate(['/accueil']);
           }
-          this.toast.success("vous avez authentifier avec success ",'authentication Successes',3000);
-
+          this.toast.success("Vous vous êtes authentifié avec succès", 'Authentication Success', 3000);
         },
         error: error => {
           this.connecting = false;
           this.loginFailed = true;
           console.log(error);
-          this.toast.danger("email ou mot de pass incorrect  ",'authentication failed',3000);
 
+          if (error.error && error.error.activateCompte === false) {
+            this.toast.warning("Votre compte a été désactivé. Contactez votre administrateur.", 'Compte désactivé', 3000);
+          } else {
+            this.toast.danger("Email ou mot de passe incorrect", 'Authentication Failed', 3000);
+          }
         }
       });
   }
+
+
+
+
 
   // login() {
   //   this.submitted = true;

@@ -26,8 +26,33 @@
     <tr *ngFor="let user of _users$ | async; trackBy: trackById">
       <td>{{ user.userName }}</td>
       <td>{{ user.email }}</td>
-      <td>{{ user.activateCompte ? 'Yes' : 'No' }}</td>
-      <td class="details"></td>
+      <td>{{ user.activateCompte ? 'Activé' : 'Désactivé' }}</td>
+      <td class="details">
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let user">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+<!--              <button mat-menu-item color="primary" (click)="openEditUserPopup(user)">-->
+<!--                <mat-icon >edit</mat-icon>-->
+<!--                <span>Mettre à jour</span>-->
+<!--              </button>-->
+              <button mat-menu-item *ngIf="user.isActive" (click)="toggleActivateCompte(user.id)">
+                <mat-icon>done</mat-icon>
+                <span>Activer</span>
+              </button>
+<!--              <button mat-menu-item *ngIf="!user.isActive" (click)="toggleAccountStatus(user.userId, true)">-->
+<!--                <mat-icon>clear</mat-icon>-->
+<!--                <span>Désactiver</span>-->
+<!--              </button>-->
+            </mat-menu>
+
+
+          </td>
+        </ng-container>
+      </td>
     </tr>
     <tr *ngIf="(_users$ | async)?.length === 0">
       <td colspan="4" style="text-align: center">No users found</td>

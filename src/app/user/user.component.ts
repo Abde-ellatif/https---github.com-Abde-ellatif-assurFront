@@ -6,6 +6,11 @@ import { NgbdSortableHeader, SortEvent } from '../sortable.directive';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import {Toast, ToastrService} from "ngx-toastr";
+import {NgToastService} from "ng-angular-popup";
+import {MatIcon} from "@angular/material/icon";
+import {MatIconButton} from "@angular/material/button";
+import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 
 @Component({
   selector: 'app-user',
@@ -17,7 +22,11 @@ import { UserService } from '../services/user.service';
     AsyncPipe,
     NgbHighlight,
     NgbdSortableHeader,
-    NgbPaginationModule
+    NgbPaginationModule,
+    MatIcon,
+    MatIconButton,
+    MatMenu,
+    MatMenuTrigger
   ],
   providers: [DecimalPipe],
   templateUrl: './user.component.html',
@@ -30,7 +39,7 @@ export class UserComponent implements OnInit {
   private _searchTerm: string = '';
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  constructor(public _userService: UserService) {
+  constructor(public _userService: UserService,private toast : NgToastService) {
     this.total$ = _userService.total$;
     this._users$ = _userService.users$;
   }
@@ -58,7 +67,23 @@ export class UserComponent implements OnInit {
     this._userService.sortDirection = direction;
   }
 
-  trackById(index: number, user: User): number {
+  trackById(index: number, user: User): string {
     return user.id;
+  }
+
+  toggleActivateCompte(user: any) {
+    const action = user.activateCompte ? 'désactiver' : 'activer';
+    if (confirm(`Êtes-vous sûr de vouloir ${action} cet utilisateur?`)) {
+      // Appeler votre service pour activer/désactiver le compte
+      this._userService.toggleActivateCompte(user.id).subscribe(
+        response => {
+          user.activateCompte = !user.activateCompte;
+          this.toast.success(`Le compte a été ${action} avec succès.`);
+        },
+        error => {
+          this.toast.danger(`Erreur lors de la tentative de ${action} le compte.`);
+        }
+      );
+    }
   }
 }

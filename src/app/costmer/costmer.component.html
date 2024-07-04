@@ -100,7 +100,7 @@
   <div>
     <button  (click)="onPageChange(pageNumber - 1)" [disabled]="pageNumber === 1">Previous</button>
     <span>Page {{pageNumber}}</span>
-    <span>Page {{totalCount}}</span>
+    <span>Page {{totalCount }}</span>
     <button (click)="onPageChange(pageNumber + 1)" [disabled]="pageNumber * pageSize >= totalCount">Next</button>
   </div>
 

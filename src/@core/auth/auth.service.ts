@@ -58,16 +58,21 @@ export class AuthService {
           if (userResp && userResp.token) {
             const currentUser = {
               access_token: userResp.token,
-              role: userResp.role
+              role: userResp.role,
+              activateCompte: userResp.activateCompte // Assurez-vous que cette propriété est présente dans la réponse
             };
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
             this.currentUserSubject.next(currentUser);
-            this.role= currentUser.role
+            this.role = currentUser.role;
           }
           return userResp;
         })
       );
   }
+
+
+
+
   getCurrentUser(){
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {

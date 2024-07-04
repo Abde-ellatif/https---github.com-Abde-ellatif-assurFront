@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ClientService } from '../services/client.service';
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {NgToastService} from "ng-angular-popup";
 
 @Component({
@@ -11,7 +11,8 @@ import {NgToastService} from "ng-angular-popup";
   styleUrls: ['./uploadcsv.component.scss'],
   imports: [
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    NgClass
   ],
   standalone: true
 })
@@ -51,12 +52,12 @@ export class UploadcsvComponent implements OnInit {
       this._clientService.uploadClient(this.file).subscribe(
         (response) => {
           console.log('Upload successful', response);
-          this.toast.success("le fichier a été charger avec succes", 'sucess',4000)
+          this.toast.success("le fichier a été charger avec succes", 'sucess',9000)
           this.form.reset();
         },
         (error) => {
           console.error('Upload error', error);
-          this.toast.danger("probleme lors du chargement du fichier merci de revérifier ",'error',3000);
+          this.toast.danger("probleme lors du chargement du fichier merci de revérifier ",'error',9000);
           this.form.reset();
         }
       );

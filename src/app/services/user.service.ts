@@ -137,4 +137,8 @@ export class UserService {
     users = users.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({ users, total });
   }
+  toggleActivateCompte(userId: string): Observable<any> {
+    return this.http.patch(`${environment.apiURL}/Users/activer-compte/${userId}`, {});
+  }
+
 }
